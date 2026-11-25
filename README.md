@@ -46,6 +46,17 @@ Your phone only needs its normal browser, and nothing ever leaves your home netw
 3. Tap **Choose photos and videos** and select what you want (multi-select and select-all work).
 4. Watch the progress. Files appear in your save folder (default `Pictures\PhoneBackup`).
 
+### 🔌 USB mode (Android)
+
+No Wi-Fi needed, and no browsing the phone's folders in Explorer.
+
+1. On the phone, enable **Developer options → USB debugging**.
+2. Plug the phone into the PC and tap **Allow** on the phone's prompt.
+3. Click **Connect via USB** in the window (or start with `--usb`). The upload page opens on the phone by itself.
+4. Choose your photos and send them as usual.
+
+`adb` comes from the `adbutils` package (installed by `run.bat` through `requirements.txt`). If you already have `adb` in PATH or a `platform-tools` folder next to the program, that is used instead; as a last resort the program tries to download Google's platform-tools. If adb is missing, run `py -m pip install adbutils` and restart.
+
 In the desktop window you can change the save folder, open it, copy the address, toggle monthly folders, and create a new access code.
 
 ## ⚙️ Command line
@@ -62,6 +73,7 @@ python phone_backup.py --port 9000 --token mysecret
 | `--dir`     | Save folder (overrides the saved setting)             |
 | `--port`    | Port to listen on (default `8765`)                    |
 | `--token`   | Fixed access code (default: random, then remembered)  |
+| `--usb`     | Connect an Android phone over USB (adb) at startup    |
 
 Settings are stored in `%APPDATA%\PhoneBackup\config.json`.
 

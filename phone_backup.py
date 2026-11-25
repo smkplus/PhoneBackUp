@@ -16,7 +16,9 @@ import os
 import queue
 import re
 import secrets
+import shutil
 import socket
+import subprocess
 import sys
 import threading
 import time
@@ -67,7 +69,7 @@ S = {
     "copy": ("کپی آدرس", "Copy address"),
     "copied": ("کپی شد ✓", "Copied ✓"),
     "new_code": ("ساخت کد جدید", "New access code"),
-    "folder": ("پوشه ذخیره:", "Save folder:"),
+    "folder": ("عکس‌ها اینجا ذخیره می‌شوند:", "Photos are saved to:"),
     "browse": ("تغییر پوشه...", "Change..."),
     "open": ("باز کردن پوشه", "Open folder"),
     "by_month": ("مرتب‌سازی در پوشه‌های ماهانه (سال-ماه)", "Organize into monthly folders (YYYY-MM)"),
@@ -78,6 +80,42 @@ S = {
     "log_fail": ("ارسال ناقص ماند: {name}", "Incomplete upload: {name}"),
     "no_net": ("به شبکه وصل نیستید", "Not connected to a network"),
     "port_fail": ("هیچ پورت آزادی پیدا نشد.", "Could not find a free port."),
+    "pick_mode": ("عکس‌ها را چطور بفرستید؟", "How do you want to send your photos?"),
+    "m_wifi": ("وای‌فای", "Wi-Fi"),
+    "m_wifi_sub": ("سریع، بدون کابل", "Fast, no cable"),
+    "m_usb": ("کابل USB", "USB cable"),
+    "m_usb_sub": ("سریع‌ترین · اندروید", "Fastest · Android"),
+    "m_bt": ("بلوتوث", "Bluetooth"),
+    "m_bt_sub": ("کند · چند عکس", "Slow · few photos"),
+    "w1": ("گوشی و کامپیوتر را به یک وای‌فای وصل کنید.", "Connect the phone and the PC to the same Wi-Fi."),
+    "w2": ("این کد را با دوربین گوشی اسکن کنید، یا آدرس زیر را در مرورگر گوشی بنویسید.",
+           "Scan this code with the phone camera, or type the address below in the phone's browser."),
+    "w3": ("روی «انتخاب عکس» بزنید و عکس‌ها را انتخاب کنید.", "Tap “Choose photos” and select them."),
+    "u1": ("روی گوشی USB debugging را روشن کنید:\nSettings ← About phone ← هفت بار Build number ← Developer options",
+           "On the phone, turn on USB debugging:\nSettings → About phone → tap Build number 7 times → Developer options → USB debugging"),
+    "u2": ("گوشی را با کابل به کامپیوتر وصل کنید و روی گوشی Allow را بزنید.",
+           "Plug the phone into the PC with a cable and tap Allow on the phone."),
+    "u3": ("دکمه‌ی زیر را بزنید؛ صفحه‌ی ارسال روی گوشی باز می‌شود.",
+           "Click the button below. The upload page opens on the phone."),
+    "b1": ("گوشی را با کامپیوتر جفت کنید (تنظیمات ویندوز ← بلوتوث).",
+           "Pair the phone with this PC (Windows Settings → Bluetooth)."),
+    "b2": ("دکمه‌ی زیر را بزنید.", "Click the button below."),
+    "b3": ("روی گوشی: عکس‌ها را انتخاب کنید ← Share ← Bluetooth ← این کامپیوتر.",
+           "On the phone: select photos → Share → Bluetooth → this PC."),
+    "waiting": ("منتظر عکس‌ها…", "Waiting for photos…"),
+    "usb": ("اتصال گوشی", "Connect phone"),
+    "usb_busy": ("در حال آماده‌سازی...", "Preparing..."),
+    "usb_ok": ("متصل شد؛ صفحه روی گوشی باز شد", "Connected. The page opened on your phone."),
+    "usb_no_device": ("گوشی پیدا نشد. کابل را وصل و USB debugging را روشن کنید.",
+                      "No phone found. Plug in the cable and enable USB debugging."),
+    "usb_unauth": ("روی گوشی Allow USB debugging را بزنید و دوباره تلاش کنید.",
+                   "Tap Allow on the phone's USB debugging prompt, then retry."),
+    "bt": ("باز کردن دریافت بلوتوث", "Open Bluetooth receiver"),
+    "bt_hint": ("در پنجره‌ی باز شده Receive a file را انتخاب کنید.", "In the window that opened, choose “Receive a file”."),
+    "bt_fail": ("ابزار بلوتوث ویندوز پیدا نشد.", "Windows Bluetooth file transfer not found."),
+    "usb_no_adb": ("adb پیدا نشد. اجرا کنید: py -m pip install adbutils و برنامه را دوباره باز کنید.",
+                   "adb not found. Run: py -m pip install adbutils, then restart the program."),
+    "usb_fail": ("خطا در اتصال USB:", "USB error:"),
     "new_code_warn": ("با ساخت کد جدید، لینک/QR قبلی از کار می‌افتد. ادامه می‌دهید؟",
                       "The previous link/QR will stop working. Continue?"),
 }
@@ -515,6 +553,86 @@ def build_url():
 
 
 # --------------------------------------------------------------------------
+# USB mode (Android): adb reverse makes the phone's localhost:PORT reach this PC
+# --------------------------------------------------------------------------
+ADB_ZIP = "https://dl.google.com/android/repository/platform-tools-latest-windows.zip"
+ADB_EXE = "adb.exe" if os.name == "nt" else "adb"
+
+
+def find_adb():
+    for p in (Path(sys.argv[0]).resolve().parent / "platform-tools" / ADB_EXE,
+              CONFIG_PATH.parent / "platform-tools" / ADB_EXE):
+        if p.exists():
+            return str(p)
+    found = shutil.which("adb")
+    if found:
+        return found
+    try:  # adbutils (pip) ships adb.exe inside the package
+        import importlib.util
+        spec = importlib.util.find_spec("adbutils")
+        p = Path(list(spec.submodule_search_locations)[0]) / "binaries" / ADB_EXE
+        if p.exists():
+            return str(p)
+    except Exception:
+        pass
+    return None
+
+
+def download_adb():
+    import io
+    import urllib.request
+    import zipfile
+    with urllib.request.urlopen(ADB_ZIP, timeout=60) as r:
+        data = r.read()
+    zipfile.ZipFile(io.BytesIO(data)).extractall(CONFIG_PATH.parent)
+
+
+def adb(*args, timeout=20):
+    r = subprocess.run([find_adb(), *args], capture_output=True, text=True, timeout=timeout,
+                       creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    return (r.stdout + r.stderr).strip()
+
+
+def usb_start():
+    if not find_adb():
+        try:
+            download_adb()
+        except Exception:
+            pass
+        if not find_adb():
+            return "usb_no_adb"
+    adb("start-server", timeout=40)
+    devs = [l.split("\t") for l in adb("devices").splitlines() if "\t" in l]
+    if not devs or devs[0][1] not in ("device", "unauthorized"):
+        return "usb_no_device"
+    if devs[0][1] == "unauthorized":
+        return "usb_unauth"
+    s = ["-s", devs[0][0]]
+    port = f"tcp:{STATE.port}"
+    adb(*s, "reverse", port, port)
+    adb(*s, "shell", "am", "start", "-a", "android.intent.action.VIEW",
+        "-d", f"http://localhost:{STATE.port}/{STATE.token}/")
+    return "usb_ok"
+
+
+def open_bluetooth():
+    try:
+        subprocess.Popen(["fsquirt.exe"])
+        return "bt_hint"
+    except OSError:
+        return "bt_fail"
+
+
+def usb_task():
+    STATE.emit("usb", "usb_busy")
+    try:
+        key = usb_start()
+    except Exception as e:
+        key = f"usb_fail:{e}"[:200]
+    STATE.emit("usb", key)
+
+
+# --------------------------------------------------------------------------
 # GUI (tkinter)
 # --------------------------------------------------------------------------
 def run_gui(srv):
@@ -536,32 +654,126 @@ def run_gui(srv):
     except Exception:
         TK_BIDI = False
     root.title(tr("title", native=True))
-    root.geometry("820x560")
-    root.minsize(760, 520)
-    font = ("Tahoma", 10)
-    root.option_add("*Font", font)
+    root.geometry("960x680")
+    root.minsize(920, 640)
+    FONT = "Segoe UI" if os.name == "nt" else "Helvetica"
+    root.option_add("*Font", (FONT, 10))
+    CARD, SEL, ACC, MUTED, GOOD, BAD = "#eef2f7", "#dbeafe", "#2563eb", "#64748b", "#16a34a", "#dc2626"
 
-    left = ttk.Frame(root, padding=14)
+    left = tk.Frame(root, padx=16, pady=14, width=430)
+    left.pack_propagate(False)  # keep the same width in every mode
     left.pack(side="left", fill="y")
-    right = ttk.Frame(root, padding=14)
+    ttk.Separator(root, orient="vertical").pack(side="left", fill="y", pady=10)
+    right = tk.Frame(root, padx=16, pady=14)
     right.pack(side="left", fill="both", expand=True)
 
-    # --- left: QR + URL
-    ttk.Label(left, text=tr("scan"), justify="center").pack(pady=(0, 8))
-    QR_SIZE = 260
-    canvas = tk.Canvas(left, width=QR_SIZE, height=QR_SIZE, bg="white", highlightthickness=1,
+    # ---- icons drawn on canvas (no emoji, so they render everywhere)
+    def icon_wifi(c, col):
+        for r in (8, 16, 24):
+            c.create_arc(22 - r, 34 - r, 22 + r, 34 + r, start=45, extent=90, style="arc", outline=col, width=3)
+        c.create_oval(19, 31, 25, 37, fill=col, outline=col)
+
+    def icon_usb(c, col):
+        c.create_rectangle(12, 16, 32, 32, fill=col, outline=col)
+        c.create_rectangle(16, 6, 19, 16, fill=col, outline=col)
+        c.create_rectangle(25, 6, 28, 16, fill=col, outline=col)
+        c.create_line(22, 32, 22, 42, fill=col, width=4)
+
+    def icon_bt(c, col):
+        c.create_line(11, 14, 31, 30, 22, 38, 22, 6, 31, 14, 11, 30, fill=col, width=3, joinstyle="round")
+
+    # ---- mode cards
+    ttk.Label(left, text=tr("pick_mode"), font=(FONT, 12, "bold")).pack(anchor=SIDE, pady=(0, 8))
+    cards = tk.Frame(left)
+    cards.pack(fill="x")
+    body = tk.Frame(left)
+    body.pack(fill="both", expand=True, pady=(12, 0))
+    modes, panels = {}, {}
+
+    def select_mode(key):
+        for k, (f, c, t, s, icon) in modes.items():
+            on = k == key
+            bg = SEL if on else CARD
+            f.config(bg=bg, highlightbackground=ACC if on else CARD)
+            for w in (t, s):
+                w.config(bg=bg)
+            c.config(bg=bg)
+            c.delete("all")
+            icon(c, ACC if on else MUTED)
+            panels[k].pack_forget()
+        panels[key].pack(fill="both", expand=True)
+
+    def make_card(key, icon, title, sub):
+        f = tk.Frame(cards, bg=CARD, cursor="hand2", highlightthickness=2, highlightbackground=CARD)
+        c = tk.Canvas(f, width=44, height=44, bg=CARD, highlightthickness=0)
+        c.pack(pady=(8, 0))
+        t = tk.Label(f, text=tr(title), bg=CARD, font=(FONT, 11, "bold"))
+        t.pack()
+        s = tk.Label(f, text=tr(sub), bg=CARD, fg=MUTED, font=(FONT, 8))
+        s.pack(pady=(0, 8))
+        for w in (f, c, t, s):
+            w.bind("<Button-1>", lambda e, k=key: select_mode(k))
+        f.pack(side="left", fill="x", expand=True, padx=3)
+        modes[key] = (f, c, t, s, icon)
+
+    make_card("wifi", icon_wifi, "m_wifi", "m_wifi_sub")
+    make_card("usb", icon_usb, "m_usb", "m_usb_sub")
+    make_card("bt", icon_bt, "m_bt", "m_bt_sub")
+
+    def step(parent, n, key):
+        row = tk.Frame(parent)
+        row.pack(fill="x", pady=4)
+        c = tk.Canvas(row, width=26, height=26, highlightthickness=0)
+        c.create_oval(2, 2, 24, 24, fill=ACC, outline=ACC)
+        c.create_text(13, 13, text=str(n), fill="white", font=(FONT, 10, "bold"))
+        c.pack(side="left", anchor="n", padx=(0, 8))
+        tk.Label(row, text=tr(key), justify="left", anchor="w", wraplength=340).pack(side="left", fill="x", expand=True)
+
+    def big_button(parent, key, cmd):
+        return tk.Button(parent, text=tr(key), command=cmd, bg=ACC, fg="white", activebackground="#1d4ed8",
+                         activeforeground="white", relief="flat", cursor="hand2", font=(FONT, 11, "bold"),
+                         padx=18, pady=8)
+
+    # ---- Wi-Fi panel
+    wifi_p = tk.Frame(body)
+    panels["wifi"] = wifi_p
+    step(wifi_p, 1, "w1")
+    step(wifi_p, 2, "w2")
+    QR_SIZE = 200
+    canvas = tk.Canvas(wifi_p, width=QR_SIZE, height=QR_SIZE, bg="white", highlightthickness=1,
                        highlightbackground="#cbd5e1")
-    canvas.pack()
-    ttk.Label(left, text=tr("or_open")).pack(pady=(12, 4))
+    canvas.pack(pady=6)
     url_var = tk.StringVar()
-    url_entry = ttk.Entry(left, textvariable=url_var, width=38, justify="left")
-    url_entry.pack()
-    btn_row = ttk.Frame(left)
-    btn_row.pack(pady=8)
+    ttk.Entry(wifi_p, textvariable=url_var, width=40, justify="left", state="readonly").pack()
+    btn_row = tk.Frame(wifi_p)
+    btn_row.pack(pady=6)
     copy_btn = ttk.Button(btn_row, text=tr("copy"))
     copy_btn.pack(side="left", padx=4)
     new_btn = ttk.Button(btn_row, text=tr("new_code"))
     new_btn.pack(side="left", padx=4)
+    step(wifi_p, 3, "w3")
+
+    # ---- USB panel
+    usb_p = tk.Frame(body)
+    panels["usb"] = usb_p
+    step(usb_p, 1, "u1")
+    step(usb_p, 2, "u2")
+    step(usb_p, 3, "u3")
+    big_button(usb_p, "usb", lambda: threading.Thread(target=usb_task, daemon=True).start()).pack(pady=(10, 6))
+    usb_var = tk.StringVar()
+    usb_lbl = tk.Label(usb_p, textvariable=usb_var, wraplength=340, justify="left", fg=MUTED,
+                       font=(FONT, 10, "bold"))
+    usb_lbl.pack(anchor="w")
+
+    # ---- Bluetooth panel
+    bt_p = tk.Frame(body)
+    panels["bt"] = bt_p
+    step(bt_p, 1, "b1")
+    step(bt_p, 2, "b2")
+    bt_var = tk.StringVar()
+    big_button(bt_p, "bt", lambda: bt_var.set(tr(open_bluetooth()))).pack(pady=(10, 6))
+    tk.Label(bt_p, textvariable=bt_var, wraplength=340, justify="left", fg=MUTED).pack(anchor="w")
+    step(bt_p, 3, "b3")
 
     def draw_qr(url):
         canvas.delete("all")
@@ -604,11 +816,11 @@ def run_gui(srv):
     copy_btn.config(command=copy_url)
     new_btn.config(command=new_code)
 
-    # --- right: folder, options, stats, log
-    ttk.Label(right, text=tr("folder")).pack(anchor=SIDE)
+    # ---- right side: where photos go + progress
+    tk.Label(right, text=tr("folder"), font=(FONT, 12, "bold")).pack(anchor=SIDE)
     folder_var = tk.StringVar(value=str(STATE.save_dir))
-    frow = ttk.Frame(right)
-    frow.pack(fill="x", pady=4)
+    frow = tk.Frame(right)
+    frow.pack(fill="x", pady=6)
     ttk.Entry(frow, textvariable=folder_var, state="readonly").pack(side="left", fill="x", expand=True)
 
     def choose_folder():
@@ -639,12 +851,13 @@ def run_gui(srv):
         STATE.cfg["by_month"] = month_var.get()
         save_config(STATE.cfg)
 
-    ttk.Checkbutton(right, text=tr("by_month"), variable=month_var, command=on_month).pack(anchor=SIDE, pady=(6, 10))
+    ttk.Checkbutton(right, text=tr("by_month"), variable=month_var, command=on_month).pack(anchor=SIDE, pady=(0, 14))
 
     stats_var = tk.StringVar()
-    ttk.Label(right, textvariable=stats_var, font=("Tahoma", 10, "bold")).pack(anchor=SIDE)
+    tk.Label(right, textvariable=stats_var, font=(FONT, 12, "bold"), fg=ACC, anchor="w",
+             justify="left").pack(anchor=SIDE)
 
-    log_frame = ttk.Frame(right)
+    log_frame = tk.Frame(right)
     log_frame.pack(fill="both", expand=True, pady=(8, 0))
     log = tk.Text(log_frame, wrap="word", state="disabled", borderwidth=0, highlightthickness=1,
                   highlightbackground="#cbd5e1", cursor="arrow", height=10)
@@ -655,9 +868,13 @@ def run_gui(srv):
     log.pack(side="left", fill="both", expand=True)
 
     counts = {"n": 0, "s": 0, "bytes": 0}
+    current = {"mode": "wifi"}
 
     def update_stats():
-        stats_var.set(tr("stats", n=counts["n"], s=counts["s"], size=human_fa(counts["bytes"])))
+        if not (counts["n"] or counts["s"]):
+            stats_var.set(tr("waiting"))
+        else:
+            stats_var.set(tr("stats", n=counts["n"], s=counts["s"], size=human_fa(counts["bytes"])))
 
     def add_log(key, name):
         log.config(state="normal")
@@ -665,6 +882,10 @@ def run_gui(srv):
         if int(log.index("end-1c").split(".")[0]) > 500:
             log.delete("501.0", "end")
         log.config(state="disabled")
+
+    def show(mode):
+        current["mode"] = mode
+        select_mode(mode)
 
     def poll():
         try:
@@ -679,6 +900,12 @@ def run_gui(srv):
                     add_log("log_skip", name)
                 elif kind == "failed":
                     add_log("log_fail", name)
+                elif kind == "usb":
+                    key, _, detail = name.partition(":")
+                    usb_var.set(tr(key) + ("\n" + detail if detail else ""))
+                    usb_lbl.config(fg=GOOD if key == "usb_ok" else MUTED if key == "usb_busy" else BAD)
+                    if current["mode"] != "usb":
+                        show("usb")
                 update_stats()
         except queue.Empty:
             pass
@@ -692,6 +919,7 @@ def run_gui(srv):
 
     refresh_url()
     update_stats()
+    show("wifi")
     poll()
     root.protocol("WM_DELETE_WINDOW", on_close)
     root.mainloop()
@@ -707,6 +935,7 @@ def main():
     ap.add_argument("--dir", help="save folder (overrides saved setting)")
     ap.add_argument("--port", type=int, help="port (default 8765)")
     ap.add_argument("--token", help="fixed access token (default: random, remembered)")
+    ap.add_argument("--usb", action="store_true", help="connect an Android phone over USB (adb) at startup")
     args = ap.parse_args()
 
     cfg = load_config()
@@ -734,6 +963,9 @@ def main():
             except Exception:
                 pass
         sys.exit(1)
+
+    if args.usb:
+        threading.Thread(target=usb_task, daemon=True).start()
 
     if args.nogui:
         print("Save folder:", STATE.save_dir)
