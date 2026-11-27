@@ -57,6 +57,18 @@ No Wi-Fi needed, and no browsing the phone's folders in Explorer.
 
 `adb` comes from the `adbutils` package (installed by `run.bat` through `requirements.txt`). If you already have `adb` in PATH or a `platform-tools` folder next to the program, that is used instead; as a last resort the program tries to download Google's platform-tools. If adb is missing, run `py -m pip install adbutils` and restart.
 
+### 🔗 USB Tether (Android and iPhone, no debugging)
+
+1. Plug the phone into the PC.
+2. On the phone turn on **USB tethering** (Android: *Settings → Hotspot & tethering*) or **Personal Hotspot** (iPhone).
+3. Click **Find connection**. The program finds the PC's address on the cable network and shows a QR code. Scan it or type the address in the phone browser.
+
+If the page does not open, allow the program on **Public networks** in the Windows Firewall prompt (tethering networks are often treated as public). iPhone needs Apple's drivers (iTunes or Apple Devices) installed on the PC.
+
+### 🔵 Bluetooth
+
+Click **Receive via Bluetooth** to open Windows' built-in Bluetooth file receiver, then on the phone use *Share → Bluetooth*. Pair the phone with the PC first. This is the slowest option, and files go to the folder Windows asks for, without duplicate skipping or monthly folders. Android phones only. Wi-Fi or USB is recommended for large backups.
+
 In the desktop window you can change the save folder, open it, copy the address, toggle monthly folders, and create a new access code.
 
 ## ⚙️ Command line
@@ -100,13 +112,13 @@ Settings are stored in `%APPDATA%\PhoneBackup\config.json`.
 | `phone_backup.py` | The whole app: local server, mobile upload page, desktop window |
 | `run.bat` | Installs requirements and starts the app |
 | `build_exe.bat` | Builds a standalone `PhoneBackup.exe` with PyInstaller |
-| `requirements.txt` | Optional helpers: `qrcode` (QR display), `arabic-reshaper` and `python-bidi` (Persian window text) |
+| `requirements.txt` | `customtkinter` + `pillow` (modern window, QR image), `qrcode`, `adbutils` (USB mode), `arabic-reshaper` and `python-bidi` (optional Persian window text) |
 
-The server itself uses only the Python standard library.
+The upload server itself uses only the Python standard library; the window needs the packages above.
 
 ## 🌐 Language
 
-The desktop window is in English. A Persian window can be enabled by setting `UI_FA = True` near the top of `phone_backup.py`. The page that opens on the phone is currently Persian (right-to-left).
+The desktop window is in English (pick Wi-Fi, USB cable or Bluetooth at the top, then follow the numbered steps). A Persian window can be enabled by setting `UI_FA = True` near the top of `phone_backup.py`. The page that opens on the phone is currently Persian (right-to-left).
 
 ## 📝 License
 

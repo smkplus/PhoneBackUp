@@ -82,11 +82,25 @@ S = {
     "port_fail": ("هیچ پورت آزادی پیدا نشد.", "Could not find a free port."),
     "pick_mode": ("عکس‌ها را چطور بفرستید؟", "How do you want to send your photos?"),
     "m_wifi": ("وای‌فای", "Wi-Fi"),
-    "m_wifi_sub": ("سریع، بدون کابل", "Fast, no cable"),
-    "m_usb": ("کابل USB", "USB cable"),
-    "m_usb_sub": ("سریع‌ترین · اندروید", "Fastest · Android"),
+    "m_wifi_sub": ("بدون کابل", "No cable"),
+    "m_usb": ("USB", "USB"),
+    "m_usb_sub": ("نیاز به دیباگ", "Needs debugging"),
+    "m_tether": ("USB Tether", "USB Tether"),
+    "m_tether_sub": ("بدون دیباگ", "No debugging"),
+    "t1": ("گوشی را با کابل به کامپیوتر وصل کنید.", "Plug the phone into the PC with a cable."),
+    "t2": ("روی گوشی USB tethering را روشن کنید (اندروید: Settings ← Hotspot & tethering) یا Personal Hotspot (آیفون).",
+           "On the phone, turn on USB tethering (Android: Settings → Hotspot & tethering) or Personal Hotspot (iPhone)."),
+    "tether_btn": ("پیدا کردن اتصال", "Find connection"),
+    "tether_busy": ("در حال جستجو…", "Searching…"),
+    "tether_ok": ("متصل شد. کد را اسکن کنید یا این آدرس را در مرورگر گوشی بنویسید:",
+                  "Connected. Scan the code or type this address in the phone's browser:"),
+    "tether_none": ("اتصال tethering پیدا نشد. مطمئن شوید USB tethering روشن و کابل وصل است.",
+                    "No tethering connection found. Make sure USB tethering is on and the cable is connected."),
+    "tether_fail": ("خطا:", "Error:"),
+    "tether_fw": ("اگر صفحه باز نشد، در پیام فایروال ویندوز اجازه‌ی Public networks را بدهید.",
+                  "If the page does not open, allow the program on Public networks in the Windows Firewall prompt."),
     "m_bt": ("بلوتوث", "Bluetooth"),
-    "m_bt_sub": ("کند · چند عکس", "Slow · few photos"),
+    "m_bt_sub": ("کند", "Slow"),
     "w1": ("گوشی و کامپیوتر را به یک وای‌فای وصل کنید.", "Connect the phone and the PC to the same Wi-Fi."),
     "w2": ("این کد را با دوربین گوشی اسکن کنید، یا آدرس زیر را در مرورگر گوشی بنویسید.",
            "Scan this code with the phone camera, or type the address below in the phone's browser."),
@@ -102,6 +116,12 @@ S = {
     "b2": ("دکمه‌ی زیر را بزنید.", "Click the button below."),
     "b3": ("روی گوشی: عکس‌ها را انتخاب کنید ← Share ← Bluetooth ← این کامپیوتر.",
            "On the phone: select photos → Share → Bluetooth → this PC."),
+    "app_sub": ("عکس و ویدیو را به این کامپیوتر بفرستید", "Send photos and videos to this PC"),
+    "t_saved": ("ذخیره‌شده", "Saved"),
+    "t_skipped": ("تکراری", "Already backed up"),
+    "t_size": ("حجم کل", "Total size"),
+    "receiving": ("در حال دریافت…", "Receiving photos…"),
+    "activity": ("فعالیت", "Activity"),
     "waiting": ("منتظر عکس‌ها…", "Waiting for photos…"),
     "usb": ("اتصال گوشی", "Connect phone"),
     "usb_busy": ("در حال آماده‌سازی...", "Preparing..."),
@@ -116,6 +136,33 @@ S = {
     "usb_no_adb": ("adb پیدا نشد. اجرا کنید: py -m pip install adbutils و برنامه را دوباره باز کنید.",
                    "adb not found. Run: py -m pip install adbutils, then restart the program."),
     "usb_fail": ("خطا در اتصال USB:", "USB error:"),
+    "full_none": ("حداقل یک نوع فایل را تیک بزنید.", "Tick at least one file type."),
+    "prog_line": ("{pct}٪  ·  {done} از {total}  ·  {speed}/s  ·  {eta} مانده",
+                  "{pct}%  ·  {done} of {total}  ·  {speed}/s  ·  {eta} left"),
+    "eta_calc": ("در حال محاسبه…", "calculating…"),
+    "eta_lt1": ("کمتر از ۱ دقیقه", "<1 min"),
+    "eta_m": ("حدود {m} دقیقه", "~{m} min"),
+    "eta_hm": ("حدود {h} ساعت و {m} دقیقه", "~{h} h {m} min"),
+    "full_summary": ("{n} فایل کپی شد · {size} · {s} تکراری رد شد",
+                     "{n} files copied · {size} · {s} already backed up"),
+    "full_failed": ("{f} فایل ناموفق", "{f} failed"),
+    "scan_btn": ("نمودار حافظه‌ی گوشی", "Show phone storage chart"),
+    "full_btn": ("بک‌آپ کل گوشی", "Back up the whole phone"),
+    "scan_busy": ("در حال بررسی حافظه‌ی گوشی… (ممکن است چند دقیقه طول بکشد)",
+                  "Scanning phone storage… (may take a few minutes)"),
+    "scan_ok": ("نمودار آماده شد", "Chart is ready"),
+    "scan_fail": ("بررسی حافظه ممکن نشد.", "Could not read the phone storage."),
+    "full_busy": ("در حال کپی کل گوشی…", "Copying the whole phone…"),
+    "full_done": ("بک‌آپ کامل شد:", "Full backup finished:"),
+    "pie_title": ("حافظه‌ی گوشی", "Phone storage"),
+    "c_photos": ("عکس", "Photos"),
+    "c_videos": ("ویدیو", "Videos"),
+    "c_audio": ("صدا و موزیک", "Audio"),
+    "c_docs": ("اسناد", "Documents"),
+    "c_apps": ("فایل برنامه (APK)", "App files (APK)"),
+    "c_other": ("سایر فایل‌ها", "Other files"),
+    "c_system": ("برنامه‌ها و سیستم", "Apps & system"),
+    "c_free": ("خالی", "Free"),
     "new_code_warn": ("با ساخت کد جدید، لینک/QR قبلی از کار می‌افتد. ادامه می‌دهید؟",
                       "The previous link/QR will stop working. Continue?"),
 }
@@ -224,18 +271,20 @@ def find_slot(directory, name, size):
         i += 1
 
 
-def human(n):
+def human(n, dec=False):
+    """dec=True: 1 GB = 1000 MB (how phones show sizes); otherwise 1024."""
     n = float(n)
+    k = 1000 if dec else 1024
     for unit in ("B", "KB", "MB", "GB", "TB"):
-        if n < 1024 or unit == "TB":
+        if n < k or unit == "TB":
             return f"{n:.0f} {unit}" if unit == "B" else f"{n:.1f} {unit}"
-        n /= 1024
+        n /= k
 
 
-def human_fa(n):
+def human_fa(n, dec=False):
     """Size with Persian unit names, so the GUI line reads naturally right-to-left."""
     if not (FA and UI_FA):
-        return human(n)
+        return human(n, dec)
     n = float(n)
     for unit in ("بایت", "کیلوبایت", "مگابایت", "گیگابایت", "ترابایت"):
         if n < 1024 or unit == "ترابایت":
@@ -593,21 +642,29 @@ def adb(*args, timeout=20):
     return (r.stdout + r.stderr).strip()
 
 
-def usb_start():
+def phone_device():
+    """Return (serial, None) for the first USB phone, or (None, error_key)."""
     if not find_adb():
         try:
             download_adb()
         except Exception:
             pass
         if not find_adb():
-            return "usb_no_adb"
+            return None, "usb_no_adb"
     adb("start-server", timeout=40)
     devs = [l.split("\t") for l in adb("devices").splitlines() if "\t" in l]
     if not devs or devs[0][1] not in ("device", "unauthorized"):
-        return "usb_no_device"
+        return None, "usb_no_device"
     if devs[0][1] == "unauthorized":
-        return "usb_unauth"
-    s = ["-s", devs[0][0]]
+        return None, "usb_unauth"
+    return devs[0][0], None
+
+
+def usb_start():
+    serial, err = phone_device()
+    if err:
+        return err
+    s = ["-s", serial]
     port = f"tcp:{STATE.port}"
     adb(*s, "reverse", port, port)
     adb(*s, "shell", "am", "start", "-a", "android.intent.action.VIEW",
@@ -623,6 +680,234 @@ def open_bluetooth():
         return "bt_fail"
 
 
+TETHER_PS = ("Get-NetAdapter | Where-Object { $_.Status -eq 'Up' -and $_.InterfaceDescription -match "
+             "'RNDIS|Remote NDIS|NCM|Android|Apple Mobile|CDC' } | ForEach-Object "
+             "{ (Get-NetIPAddress -InterfaceIndex $_.ifIndex -AddressFamily IPv4).IPAddress }")
+
+
+def tether_ips():
+    ips = []
+    if os.name == "nt":
+        try:
+            r = subprocess.run(["powershell", "-NoProfile", "-Command", TETHER_PS], capture_output=True,
+                               text=True, timeout=20, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            ips = [l.strip() for l in r.stdout.splitlines() if re.fullmatch(r"\d+\.\d+\.\d+\.\d+", l.strip())]
+        except Exception:
+            pass
+    if not ips:
+        try:
+            found = {r[4][0] for r in socket.getaddrinfo(socket.gethostname(), None, socket.AF_INET)}
+        except OSError:
+            found = set()
+        ips = sorted(i for i in found if i.startswith(("192.168.42.", "172.20.10.")))
+    return [i for i in ips if not i.startswith(("127.", "169.254."))]
+
+
+def tether_task():
+    STATE.emit("tether", "tether_busy")
+    try:
+        ips = tether_ips()
+        key = f"tether_ok:http://{ips[0]}:{STATE.port}/{STATE.token}/" if ips else "tether_none"
+    except Exception as e:
+        key = f"tether_fail:{e}"[:200]
+    STATE.emit("tether", key)
+
+
+EXT_CAT = {}
+for _cat, _exts in (
+        ("c_photos", "jpg jpeg png gif webp heic heif bmp dng raw"),
+        ("c_videos", "mp4 mkv mov avi 3gp webm m4v"),
+        ("c_audio", "mp3 m4a aac wav ogg opus flac amr"),
+        ("c_docs", "pdf doc docx xls xlsx ppt pptx txt csv epub"),
+        ("c_apps", "apk xapk")):
+    for _e in _exts.split():
+        EXT_CAT[_e] = _cat
+PHONE_ROOT = "/storage/emulated/0"
+
+
+CAT_DIR = {"c_photos": "Photos", "c_videos": "Videos", "c_audio": "Audio", "c_docs": "Documents",
+           "c_apps": "Apps", "c_other": "Other"}
+
+
+def adb_text(serial, cmd, timeout=900):
+    r = subprocess.run([find_adb(), "-s", serial, "shell", cmd], capture_output=True, timeout=timeout,
+                       creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    return r.stdout.decode("utf-8", "replace")
+
+
+def list_phone_files(serial):
+    """[(size, mtime, path, category)] for every readable file in the phone's shared storage."""
+    out = adb_text(serial, f"find {PHONE_ROOT}/ -type f -exec stat -c '%s|%Y|%n' {{}} + 2>/dev/null")
+    files = []
+    for line in out.splitlines():
+        parts = line.split("|", 2)
+        if len(parts) == 3 and parts[0].isdigit() and parts[1].isdigit():
+            base = parts[2].rsplit("/", 1)[-1]
+            ext = base.rsplit(".", 1)[-1].lower() if "." in base else ""
+            files.append((int(parts[0]), int(parts[1]), parts[2], EXT_CAT.get(ext, "c_other")))
+    return files
+
+
+def storage_info(serial):
+    """(total, used, free) in bytes, or None."""
+    try:
+        df = adb_text(serial, f"df -k {PHONE_ROOT} 2>/dev/null || df -k /data", 30).splitlines()
+        tok = " ".join(df[1:]).split()
+        return tuple(int(tok[i]) * 1024 for i in (1, 2, 3))
+    except Exception:
+        return None
+
+
+def emit_pie(files, info):
+    sizes = {k: 0 for k in CAT_DIR}
+    for sz, _, _, cat in files:
+        sizes[cat] += sz
+    total, used, avail = info
+    parts = list(sizes.items()) + [("c_system", max(used - sum(sizes.values()), 0)), ("c_free", avail)]
+    STATE.emit("pie", json.dumps({"parts": parts, "total": total, "used": used}))
+
+
+def scan_phone(serial):
+    info = storage_info(serial)
+    files = list_phone_files(serial)
+    if not info or not files:
+        return "scan_fail"
+    emit_pie(files, info)
+    return "scan_ok"
+
+
+def plan_slot(directory, name, size, planned):
+    """Return (path, is_duplicate). Same name + same size == already backed up (on disk or planned)."""
+    stem, ext = os.path.splitext(name)
+    i = 0
+    while True:
+        q = directory / (name if i == 0 else f"{stem}_{i}{ext}")
+        have = planned.get(q)
+        if have is None and q.exists():
+            have = q.stat().st_size
+        if have is None:
+            return q, False
+        if have == size:
+            return q, True
+        i += 1
+
+
+def eta_text(sec):
+    if sec < 60:
+        return tr("eta_lt1")
+    m = int(sec / 60 + 0.5)
+    return tr("eta_m", m=m) if m < 60 else tr("eta_hm", h=m // 60, m=m % 60)
+
+
+def make_puller(serial):
+    """pull(remote, local): adbutils (one connection, fast); falls back to the adb program."""
+    st = {"dev": None}
+    try:
+        import adbutils
+        st["dev"] = adbutils.adb.device(serial)
+    except Exception:
+        pass
+
+    def pull(src, dst):
+        if st["dev"] is not None:
+            try:
+                st["dev"].sync.pull(src, dst)
+                return
+            except (AttributeError, TypeError):
+                st["dev"] = None
+            except Exception:
+                pass
+        r = subprocess.run([find_adb(), "-s", serial, "pull", src, dst], capture_output=True, timeout=3600,
+                           creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        if r.returncode != 0:
+            raise OSError(r.stdout.decode("utf-8", "replace")[-200:])
+    return pull
+
+
+def full_backup(serial, cats):
+    """Copy the chosen file types into <save folder>\\FullBackup\\<Type>\\ with live progress."""
+    files = list_phone_files(serial)
+    info = storage_info(serial)
+    if files and info:
+        emit_pie(files, info)
+    base = STATE.save_dir / "FullBackup"
+    planned, todo, skipped = {}, [], 0
+    for size, mtime, path, cat in files:
+        if cat not in cats or "/.thumbnails/" in path or "/Android/" in path:
+            continue
+        name = sanitize(path)
+        if not name:
+            continue
+        dst, dup = plan_slot(base / CAT_DIR[cat], name, size, planned)
+        if dup:
+            skipped += 1
+            continue
+        planned[dst] = size
+        todo.append((path, dst, size, mtime))
+    total = max(sum(t[2] for t in todo), 1)
+
+    cur = {"done": 0, "part": None, "stop": False}
+    t0 = time.time()
+
+    def ticker():
+        while not cur["stop"]:
+            time.sleep(0.5)
+            d = cur["done"]
+            try:
+                if cur["part"]:
+                    d += os.path.getsize(cur["part"])
+            except OSError:
+                pass
+            d = min(d, total)
+            el = time.time() - t0
+            speed = d / el if el > 3 and d else 0
+            eta = (total - d) / speed if speed else -1
+            STATE.emit("prog", json.dumps({"done": d, "total": total, "speed": speed, "eta": eta}))
+
+    threading.Thread(target=ticker, daemon=True).start()
+    pull = make_puller(serial)
+    n = failed = copied = 0
+    try:
+        for path, dst, size, mtime in todo:
+            part = dst.with_name(dst.name + ".part")
+            cur["part"] = part
+            try:
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                pull(path, str(part))
+                os.replace(part, dst)
+                os.utime(dst, (mtime, mtime))
+                n += 1
+                copied += size
+            except Exception:
+                failed += 1
+                try:
+                    part.unlink()
+                except OSError:
+                    pass
+            cur["part"] = None
+            cur["done"] += size
+    finally:
+        cur["stop"] = True
+    STATE.emit("prog", json.dumps({"done": total, "total": total, "speed": 0, "eta": 0}))
+    msg = tr("full_summary", n=n, size=human_fa(copied, True), s=skipped)
+    if failed:
+        msg += " · " + tr("full_failed", f=failed)
+    return f"full_done:{msg}\n{base}"
+
+
+def phone_task(kind, cats=()):
+    STATE.emit("usb", "scan_busy" if kind == "scan" else "full_busy")
+    try:
+        serial, err = phone_device()
+        if err:
+            key = err
+        else:
+            key = scan_phone(serial) if kind == "scan" else full_backup(serial, set(cats))
+    except Exception as e:
+        key = f"usb_fail:{e}"[:200]
+    STATE.emit("usb", key)
+
+
 def usb_task():
     STATE.emit("usb", "usb_busy")
     try:
@@ -635,17 +920,50 @@ def usb_task():
 # --------------------------------------------------------------------------
 # GUI (tkinter)
 # --------------------------------------------------------------------------
+def make_icon(kind, color, px=40):
+    """Anti-aliased icon drawn with Pillow (rendered large, then scaled down)."""
+    from PIL import Image, ImageDraw
+    k = 8
+    img = Image.new("RGBA", (44 * k, 44 * k), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+
+    def P(*pts):
+        return [c * k for c in pts]
+
+    if kind == "wifi":
+        for r in (8, 16, 24):
+            d.arc(P(22 - r, 34 - r, 22 + r, 34 + r), start=225, end=315, fill=color, width=int(3.4 * k))
+        d.ellipse(P(18.5, 30.5, 25.5, 37.5), fill=color)
+    elif kind == "usb":
+        d.rounded_rectangle(P(11, 16, 33, 33), radius=3 * k, fill=color)
+        d.rectangle(P(16, 6, 19.5, 16), fill=color)
+        d.rectangle(P(24.5, 6, 28, 16), fill=color)
+        d.line(P(22, 33, 22, 42), fill=color, width=int(4 * k))
+    elif kind == "tether":
+        d.rectangle(P(5, 9, 17, 35), outline=color, width=int(3 * k))
+        d.rectangle(P(22, 13, 40, 28), outline=color, width=int(3 * k))
+        d.line(P(17, 22, 22, 22), fill=color, width=int(3 * k))
+        d.line(P(31, 28, 31, 34), fill=color, width=int(3 * k))
+        d.line(P(25, 35, 37, 35), fill=color, width=int(3 * k))
+    else:
+        d.line(P(11, 14, 31, 30, 22, 38, 22, 6, 31, 14, 11, 30), fill=color, width=int(3.4 * k), joint="curve")
+    return img.resize((px * 3, px * 3), Image.LANCZOS)
+
+
 def run_gui(srv):
     import tkinter as tk
-    from tkinter import filedialog, messagebox, ttk
+    import customtkinter as ctk
+    from tkinter import filedialog, messagebox
 
-    try:  # crisp text on high-DPI Windows screens
-        import ctypes
-        ctypes.windll.shcore.SetProcessDpiAwareness(1)
-    except Exception:
-        pass
+    BG, CARD, SEL, ACC, ACC_H = "#f1f5f9", "#ffffff", "#eff6ff", "#2563eb", "#1d4ed8"
+    TXT, MUTED, BORDER, GOOD, BAD = "#0f172a", "#64748b", "#e2e8f0", "#16a34a", "#dc2626"
+    FONT = "Segoe UI" if os.name == "nt" else "Helvetica"
 
-    root = tk.Tk()
+    def F(size, bold=False):
+        return ctk.CTkFont(family=FONT, size=size, weight="bold" if bold else "normal")
+
+    ctk.set_appearance_mode("light")
+    root = ctk.CTk(fg_color=BG)
     SIDE = "e" if UI_FA else "w"
     global TK_BIDI
     try:
@@ -654,158 +972,205 @@ def run_gui(srv):
     except Exception:
         TK_BIDI = False
     root.title(tr("title", native=True))
-    root.geometry("960x680")
-    root.minsize(920, 640)
-    FONT = "Segoe UI" if os.name == "nt" else "Helvetica"
-    root.option_add("*Font", (FONT, 10))
-    CARD, SEL, ACC, MUTED, GOOD, BAD = "#eef2f7", "#dbeafe", "#2563eb", "#64748b", "#16a34a", "#dc2626"
+    root.geometry("1020x800")
+    root.resizable(False, False)
+    root.grid_columnconfigure(0, weight=0)
+    root.grid_columnconfigure(1, weight=1)
+    root.grid_rowconfigure(0, weight=1)
 
-    left = tk.Frame(root, padx=16, pady=14, width=430)
-    left.pack_propagate(False)  # keep the same width in every mode
-    left.pack(side="left", fill="y")
-    ttk.Separator(root, orient="vertical").pack(side="left", fill="y", pady=10)
-    right = tk.Frame(root, padx=16, pady=14)
-    right.pack(side="left", fill="both", expand=True)
+    left = ctk.CTkFrame(root, width=470, fg_color="transparent")
+    left.grid(row=0, column=0, sticky="nsew", padx=(22, 8), pady=20)
+    left.pack_propagate(False)  # same width in every mode
+    right = ctk.CTkFrame(root, fg_color="transparent")
+    right.grid(row=0, column=1, sticky="nsew", padx=(8, 22), pady=20)
 
-    # ---- icons drawn on canvas (no emoji, so they render everywhere)
-    def icon_wifi(c, col):
-        for r in (8, 16, 24):
-            c.create_arc(22 - r, 34 - r, 22 + r, 34 + r, start=45, extent=90, style="arc", outline=col, width=3)
-        c.create_oval(19, 31, 25, 37, fill=col, outline=col)
-
-    def icon_usb(c, col):
-        c.create_rectangle(12, 16, 32, 32, fill=col, outline=col)
-        c.create_rectangle(16, 6, 19, 16, fill=col, outline=col)
-        c.create_rectangle(25, 6, 28, 16, fill=col, outline=col)
-        c.create_line(22, 32, 22, 42, fill=col, width=4)
-
-    def icon_bt(c, col):
-        c.create_line(11, 14, 31, 30, 22, 38, 22, 6, 31, 14, 11, 30, fill=col, width=3, joinstyle="round")
+    # ---- header
+    ctk.CTkLabel(left, text=tr("title"), font=F(24, True), text_color=TXT).pack(anchor=SIDE)
+    ctk.CTkLabel(left, text=tr("app_sub"), font=F(13), text_color=MUTED).pack(anchor=SIDE, pady=(0, 14))
 
     # ---- mode cards
-    ttk.Label(left, text=tr("pick_mode"), font=(FONT, 12, "bold")).pack(anchor=SIDE, pady=(0, 8))
-    cards = tk.Frame(left)
+    cards = ctk.CTkFrame(left, fg_color="transparent")
     cards.pack(fill="x")
-    body = tk.Frame(left)
-    body.pack(fill="both", expand=True, pady=(12, 0))
+    for i in range(4):
+        cards.grid_columnconfigure(i, weight=1, uniform="c")
+    host = ctk.CTkFrame(left, corner_radius=0, fg_color=CARD, border_width=1, border_color=BORDER)
+    host.pack(fill="both", expand=True, pady=(14, 0))
     modes, panels = {}, {}
 
     def select_mode(key):
-        for k, (f, c, t, s, icon) in modes.items():
+        for k, m in modes.items():
             on = k == key
-            bg = SEL if on else CARD
-            f.config(bg=bg, highlightbackground=ACC if on else CARD)
-            for w in (t, s):
-                w.config(bg=bg)
-            c.config(bg=bg)
-            c.delete("all")
-            icon(c, ACC if on else MUTED)
+            m["frame"].configure(fg_color=SEL if on else CARD, border_color=ACC if on else BORDER)
+            m["icon"].configure(image=m["img_on"] if on else m["img_off"])
             panels[k].pack_forget()
-        panels[key].pack(fill="both", expand=True)
+        panels[key].pack(fill="both", expand=True, padx=20, pady=18)
 
-    def make_card(key, icon, title, sub):
-        f = tk.Frame(cards, bg=CARD, cursor="hand2", highlightthickness=2, highlightbackground=CARD)
-        c = tk.Canvas(f, width=44, height=44, bg=CARD, highlightthickness=0)
-        c.pack(pady=(8, 0))
-        t = tk.Label(f, text=tr(title), bg=CARD, font=(FONT, 11, "bold"))
+    def make_card(col, key, title, sub):
+        f = ctk.CTkFrame(cards, corner_radius=0, fg_color=CARD, border_width=2, border_color=BORDER)
+        f.grid(row=0, column=col, sticky="nsew", padx=4)
+        img_on = ctk.CTkImage(make_icon(key, ACC), size=(40, 40))
+        img_off = ctk.CTkImage(make_icon(key, MUTED), size=(40, 40))
+        ic = ctk.CTkLabel(f, text="", image=img_off)
+        ic.pack(pady=(12, 2))
+        t = ctk.CTkLabel(f, text=tr(title), font=F(13, True), text_color=TXT)
         t.pack()
-        s = tk.Label(f, text=tr(sub), bg=CARD, fg=MUTED, font=(FONT, 8))
-        s.pack(pady=(0, 8))
-        for w in (f, c, t, s):
+        s = ctk.CTkLabel(f, text=tr(sub), font=F(11), text_color=MUTED)
+        s.pack(pady=(0, 12))
+        for w in (f, ic, t, s):
             w.bind("<Button-1>", lambda e, k=key: select_mode(k))
-        f.pack(side="left", fill="x", expand=True, padx=3)
-        modes[key] = (f, c, t, s, icon)
+        try:
+            f.configure(cursor="hand2")
+        except Exception:
+            pass
+        modes[key] = {"frame": f, "icon": ic, "img_on": img_on, "img_off": img_off}
 
-    make_card("wifi", icon_wifi, "m_wifi", "m_wifi_sub")
-    make_card("usb", icon_usb, "m_usb", "m_usb_sub")
-    make_card("bt", icon_bt, "m_bt", "m_bt_sub")
+    make_card(0, "wifi", "m_wifi", "m_wifi_sub")
+    make_card(1, "usb", "m_usb", "m_usb_sub")
+    make_card(2, "tether", "m_tether", "m_tether_sub")
+    make_card(3, "bt", "m_bt", "m_bt_sub")
 
     def step(parent, n, key):
-        row = tk.Frame(parent)
-        row.pack(fill="x", pady=4)
-        c = tk.Canvas(row, width=26, height=26, highlightthickness=0)
-        c.create_oval(2, 2, 24, 24, fill=ACC, outline=ACC)
-        c.create_text(13, 13, text=str(n), fill="white", font=(FONT, 10, "bold"))
-        c.pack(side="left", anchor="n", padx=(0, 8))
-        tk.Label(row, text=tr(key), justify="left", anchor="w", wraplength=340).pack(side="left", fill="x", expand=True)
+        row = ctk.CTkFrame(parent, fg_color="transparent")
+        row.pack(fill="x", pady=5)
+        ctk.CTkLabel(row, text=str(n), width=28, height=28, corner_radius=0, fg_color=ACC,
+                     text_color="white", font=F(12, True)).pack(side="left", anchor="n", padx=(0, 12))
+        ctk.CTkLabel(row, text=tr(key), font=F(13), text_color=TXT, justify="left", anchor="w",
+                     wraplength=350).pack(side="left", fill="x", expand=True)
 
-    def big_button(parent, key, cmd):
-        return tk.Button(parent, text=tr(key), command=cmd, bg=ACC, fg="white", activebackground="#1d4ed8",
-                         activeforeground="white", relief="flat", cursor="hand2", font=(FONT, 11, "bold"),
-                         padx=18, pady=8)
+    def primary(parent, key, cmd):
+        return ctk.CTkButton(parent, text=tr(key), command=cmd, height=46, corner_radius=0, fg_color=ACC,
+                             hover_color=ACC_H, font=F(14, True))
+
+    def secondary(parent, key):
+        return ctk.CTkButton(parent, text=tr(key), height=34, corner_radius=0, fg_color="#e2e8f0",
+                             hover_color="#cbd5e1", text_color=TXT, font=F(12))
 
     # ---- Wi-Fi panel
-    wifi_p = tk.Frame(body)
+    wifi_p = ctk.CTkFrame(host, fg_color="transparent")
     panels["wifi"] = wifi_p
     step(wifi_p, 1, "w1")
     step(wifi_p, 2, "w2")
-    QR_SIZE = 200
-    canvas = tk.Canvas(wifi_p, width=QR_SIZE, height=QR_SIZE, bg="white", highlightthickness=1,
-                       highlightbackground="#cbd5e1")
-    canvas.pack(pady=6)
-    url_var = tk.StringVar()
-    ttk.Entry(wifi_p, textvariable=url_var, width=40, justify="left", state="readonly").pack()
-    btn_row = tk.Frame(wifi_p)
-    btn_row.pack(pady=6)
-    copy_btn = ttk.Button(btn_row, text=tr("copy"))
+    qr_lbl = ctk.CTkLabel(wifi_p, text="", fg_color="white", corner_radius=0)
+    qr_lbl.pack(pady=(6, 8))
+    url_entry = ctk.CTkEntry(wifi_p, height=34, corner_radius=0, border_color=BORDER, fg_color="#f8fafc",
+                             text_color=TXT, font=F(12))
+    url_entry.pack(fill="x")
+    btn_row = ctk.CTkFrame(wifi_p, fg_color="transparent")
+    btn_row.pack(pady=8)
+    copy_btn = secondary(btn_row, "copy")
     copy_btn.pack(side="left", padx=4)
-    new_btn = ttk.Button(btn_row, text=tr("new_code"))
+    new_btn = secondary(btn_row, "new_code")
     new_btn.pack(side="left", padx=4)
     step(wifi_p, 3, "w3")
 
     # ---- USB panel
-    usb_p = tk.Frame(body)
+    usb_p = ctk.CTkFrame(host, fg_color="transparent")
     panels["usb"] = usb_p
     step(usb_p, 1, "u1")
     step(usb_p, 2, "u2")
     step(usb_p, 3, "u3")
-    big_button(usb_p, "usb", lambda: threading.Thread(target=usb_task, daemon=True).start()).pack(pady=(10, 6))
-    usb_var = tk.StringVar()
-    usb_lbl = tk.Label(usb_p, textvariable=usb_var, wraplength=340, justify="left", fg=MUTED,
-                       font=(FONT, 10, "bold"))
+    primary(usb_p, "usb", lambda: threading.Thread(target=usb_task, daemon=True).start()).pack(fill="x", pady=(14, 8))
+    ctk.CTkButton(usb_p, text=tr("scan_btn"), command=lambda: threading.Thread(
+        target=phone_task, args=("scan",), daemon=True).start(), height=38, corner_radius=0, fg_color="#e2e8f0",
+        hover_color="#cbd5e1", text_color=TXT, font=F(13, True)).pack(fill="x", pady=(0, 8))
+    cat_vars = {}
+    cat_row = ctk.CTkFrame(usb_p, fg_color="transparent")
+    cat_row.pack(fill="x", pady=(2, 8))
+    for i, k in enumerate(CAT_DIR):
+        cat_vars[k] = tk.BooleanVar(value=True)
+        ctk.CTkCheckBox(cat_row, text=tr(k), variable=cat_vars[k], font=F(11), text_color=TXT, fg_color=ACC,
+                        hover_color=ACC_H, corner_radius=0, border_width=2, checkbox_width=18,
+                        checkbox_height=18).grid(row=i // 3, column=i % 3, sticky="w", padx=(0, 8), pady=3)
+    for c in range(3):
+        cat_row.grid_columnconfigure(c, weight=1, uniform="k")
+
+    prog_bar = ctk.CTkProgressBar(usb_p, height=14, corner_radius=0, progress_color=ACC, fg_color="#e2e8f0")
+    prog_bar.set(0)
+    prog_lbl = ctk.CTkLabel(usb_p, text="", font=F(12, True), text_color=ACC, anchor="w")
+    prog_shown = {"on": False}
+
+    def start_full():
+        cats = [k for k, v in cat_vars.items() if v.get()]
+        if not cats:
+            STATE.emit("usb", "full_none")
+            return
+        prog_bar.set(0)
+        prog_lbl.configure(text="")
+        threading.Thread(target=phone_task, args=("full", cats), daemon=True).start()
+
+    primary(usb_p, "full_btn", start_full).pack(fill="x", pady=(0, 8))
+    usb_lbl = ctk.CTkLabel(usb_p, text="", font=F(12, True), text_color=MUTED, justify="left", anchor="w",
+                           wraplength=380)
     usb_lbl.pack(anchor="w")
 
     # ---- Bluetooth panel
-    bt_p = tk.Frame(body)
+    bt_p = ctk.CTkFrame(host, fg_color="transparent")
     panels["bt"] = bt_p
     step(bt_p, 1, "b1")
     step(bt_p, 2, "b2")
-    bt_var = tk.StringVar()
-    big_button(bt_p, "bt", lambda: bt_var.set(tr(open_bluetooth()))).pack(pady=(10, 6))
-    tk.Label(bt_p, textvariable=bt_var, wraplength=340, justify="left", fg=MUTED).pack(anchor="w")
+    bt_lbl = ctk.CTkLabel(bt_p, text="", font=F(12, True), text_color=MUTED, justify="left", anchor="w",
+                          wraplength=380)
+    primary(bt_p, "bt", lambda: bt_lbl.configure(text=tr(open_bluetooth()))).pack(fill="x", pady=(14, 8))
+    bt_lbl.pack(anchor="w")
     step(bt_p, 3, "b3")
 
-    def draw_qr(url):
-        canvas.delete("all")
+    tether_p = ctk.CTkFrame(host, fg_color="transparent")
+    panels["tether"] = tether_p
+    step(tether_p, 1, "t1")
+    step(tether_p, 2, "t2")
+    primary(tether_p, "tether_btn", lambda: threading.Thread(target=tether_task, daemon=True).start()).pack(
+        fill="x", pady=(12, 6))
+    tether_lbl = ctk.CTkLabel(tether_p, text="", font=F(12, True), text_color=MUTED, justify="left", anchor="w",
+                              wraplength=400)
+    tether_lbl.pack(anchor="w")
+    ctk.CTkLabel(tether_p, text=tr("tether_fw"), font=F(11), text_color=MUTED, justify="left", anchor="w",
+                 wraplength=400).pack(side="bottom", anchor="w")
+    tether_res = ctk.CTkFrame(tether_p, fg_color="transparent")
+    tether_qr = ctk.CTkLabel(tether_res, text="", fg_color="white")
+    tether_qr.pack(pady=(6, 6))
+    tether_entry = ctk.CTkEntry(tether_res, height=34, corner_radius=0, border_color=BORDER, fg_color="#f8fafc",
+                                text_color=TXT, font=F(12))
+    tether_entry.pack(fill="x")
+    tether_copy = secondary(tether_res, "copy")
+    tether_copy.pack(pady=(6, 0))
+
+    qr_imgs, tq_imgs = [], []
+
+    def make_qr(url, size):
         try:
             import qrcode
-            qr = qrcode.QRCode(border=2, error_correction=qrcode.constants.ERROR_CORRECT_M)
+            qr = qrcode.QRCode(border=2, box_size=10, error_correction=qrcode.constants.ERROR_CORRECT_M)
             qr.add_data(url)
             qr.make(fit=True)
-            m = qr.get_matrix()
-            n = len(m)
-            cell = max(1, QR_SIZE // n)
-            off = (QR_SIZE - cell * n) // 2
-            for y, row in enumerate(m):
-                for x, v in enumerate(row):
-                    if v:
-                        canvas.create_rectangle(off + x * cell, off + y * cell,
-                                                off + (x + 1) * cell, off + (y + 1) * cell,
-                                                fill="black", outline="black")
+            pil = qr.make_image(fill_color="black", back_color="white").convert("RGB")
+            return ctk.CTkImage(pil, size=(size, size))
         except Exception:
-            canvas.create_text(QR_SIZE // 2, QR_SIZE // 2, text="pip install qrcode",
-                               fill="#475569", font=("Consolas", 10))
+            return None
+
+    def draw_qr(url):
+        img = make_qr(url, 190)
+        if img:
+            qr_imgs[:] = [img]
+            qr_lbl.configure(image=img, text="")
+        else:
+            qr_lbl.configure(image=None, text="pip install qrcode pillow", width=190, height=190, text_color=MUTED)
+
+    def copy_text(text, btn):
+        root.clipboard_clear()
+        root.clipboard_append(text)
+        btn.configure(text=tr("copied"))
+        root.after(1500, lambda: btn.configure(text=tr("copy")))
 
     def refresh_url():
         url = build_url()
-        url_var.set(url)
+        url_entry.configure(state="normal")
+        url_entry.delete(0, "end")
+        url_entry.insert(0, url)
+        url_entry.configure(state="readonly")
         draw_qr(url)
 
     def copy_url():
-        root.clipboard_clear()
-        root.clipboard_append(url_var.get())
-        copy_btn.config(text=tr("copied"))
-        root.after(1500, lambda: copy_btn.config(text=tr("copy")))
+        copy_text(url_entry.get(), copy_btn)
 
     def new_code():
         if messagebox.askyesno(tr("title", native=True), tr("new_code_warn", native=True)):
@@ -813,22 +1178,32 @@ def run_gui(srv):
             save_config(STATE.cfg)
             refresh_url()
 
-    copy_btn.config(command=copy_url)
-    new_btn.config(command=new_code)
+    copy_btn.configure(command=copy_url)
+    tether_copy.configure(command=lambda: copy_text(tether_entry.get(), tether_copy))
+    new_btn.configure(command=new_code)
 
-    # ---- right side: where photos go + progress
-    tk.Label(right, text=tr("folder"), font=(FONT, 12, "bold")).pack(anchor=SIDE)
-    folder_var = tk.StringVar(value=str(STATE.save_dir))
-    frow = tk.Frame(right)
-    frow.pack(fill="x", pady=6)
-    ttk.Entry(frow, textvariable=folder_var, state="readonly").pack(side="left", fill="x", expand=True)
+    # ---- right side: destination card
+    dest = ctk.CTkFrame(right, corner_radius=0, fg_color=CARD, border_width=1, border_color=BORDER)
+    dest.pack(fill="x")
+    ctk.CTkLabel(dest, text=tr("folder"), font=F(14, True), text_color=TXT).pack(anchor=SIDE, padx=18, pady=(16, 6))
+    frow = ctk.CTkFrame(dest, fg_color="transparent")
+    frow.pack(fill="x", padx=18)
+    folder_entry = ctk.CTkEntry(frow, height=36, corner_radius=0, border_color=BORDER, fg_color="#f8fafc",
+                                text_color=TXT, font=F(12))
+    folder_entry.pack(side="left", fill="x", expand=True)
+
+    def set_folder_text():
+        folder_entry.configure(state="normal")
+        folder_entry.delete(0, "end")
+        folder_entry.insert(0, str(STATE.save_dir))
+        folder_entry.configure(state="readonly")
 
     def choose_folder():
         d = filedialog.askdirectory(initialdir=str(STATE.save_dir))
         if d:
             STATE.cfg["save_dir"] = os.path.normpath(d)
-            folder_var.set(STATE.cfg["save_dir"])
             save_config(STATE.cfg)
+            set_folder_text()
 
     def open_folder():
         STATE.save_dir.mkdir(parents=True, exist_ok=True)
@@ -842,8 +1217,12 @@ def run_gui(srv):
         except Exception:
             pass
 
-    ttk.Button(frow, text=tr("browse"), command=choose_folder).pack(side="left", padx=(6, 0))
-    ttk.Button(frow, text=tr("open"), command=open_folder).pack(side="left", padx=(6, 0))
+    browse_btn = secondary(frow, "browse")
+    browse_btn.configure(command=choose_folder)
+    browse_btn.pack(side="left", padx=(8, 0))
+    open_btn = secondary(frow, "open")
+    open_btn.configure(command=open_folder)
+    open_btn.pack(side="left", padx=(8, 0))
 
     month_var = tk.BooleanVar(value=STATE.by_month)
 
@@ -851,37 +1230,86 @@ def run_gui(srv):
         STATE.cfg["by_month"] = month_var.get()
         save_config(STATE.cfg)
 
-    ttk.Checkbutton(right, text=tr("by_month"), variable=month_var, command=on_month).pack(anchor=SIDE, pady=(0, 14))
+    tk.Checkbutton(dest, text=tr("by_month"), variable=month_var, command=on_month, bg=CARD, fg=TXT,
+                   activebackground=CARD, activeforeground=TXT, selectcolor="white", relief="flat",
+                   highlightthickness=0, bd=0, font=(FONT, 10), cursor="hand2").pack(anchor=SIDE, padx=18,
+                                                                                    pady=(12, 16))
 
-    stats_var = tk.StringVar()
-    tk.Label(right, textvariable=stats_var, font=(FONT, 12, "bold"), fg=ACC, anchor="w",
-             justify="left").pack(anchor=SIDE)
+    # ---- stat tiles
+    tiles = ctk.CTkFrame(right, fg_color="transparent")
+    tiles.pack(fill="x", pady=14)
+    for i in range(3):
+        tiles.grid_columnconfigure(i, weight=1, uniform="t")
+    tile_vals = {}
+    for i, (key, cap) in enumerate((("n", "t_saved"), ("s", "t_skipped"), ("size", "t_size"))):
+        t = ctk.CTkFrame(tiles, corner_radius=0, fg_color=CARD, border_width=1, border_color=BORDER)
+        t.grid(row=0, column=i, sticky="nsew", padx=(0 if i == 0 else 6, 0 if i == 2 else 6))
+        tile_vals[key] = ctk.CTkLabel(t, text="0", font=F(26, True), text_color=ACC)
+        tile_vals[key].pack(pady=(14, 0))
+        ctk.CTkLabel(t, text=tr(cap), font=F(11), text_color=MUTED).pack(pady=(0, 14))
 
-    log_frame = tk.Frame(right)
-    log_frame.pack(fill="both", expand=True, pady=(8, 0))
-    log = tk.Text(log_frame, wrap="word", state="disabled", borderwidth=0, highlightthickness=1,
-                  highlightbackground="#cbd5e1", cursor="arrow", height=10)
-    log.tag_configure("r", justify="right" if UI_FA else "left")
-    sb = ttk.Scrollbar(log_frame, orient="vertical", command=log.yview)
-    log.config(yscrollcommand=sb.set)
-    sb.pack(side="right", fill="y")
-    log.pack(side="left", fill="both", expand=True)
+    status_lbl = ctk.CTkLabel(right, text=tr("waiting"), font=F(13, True), text_color=MUTED)
+    status_lbl.pack(anchor=SIDE, pady=(0, 8))
+
+    # ---- activity log
+    logcard = ctk.CTkFrame(right, corner_radius=0, fg_color=CARD, border_width=1, border_color=BORDER)
+    logcard.pack(fill="both", expand=True)
+    ctk.CTkLabel(logcard, text=tr("activity"), font=F(14, True), text_color=TXT).pack(anchor=SIDE, padx=18,
+                                                                                    pady=(14, 4))
+    log = ctk.CTkTextbox(logcard, fg_color=CARD, text_color=TXT, font=F(12), wrap="word", state="disabled")
+    log.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+    try:
+        log._textbox.tag_configure("r", justify="right" if UI_FA else "left")
+    except Exception:
+        pass
+
+    # ---- pie chart card (shown after "Show phone storage chart")
+    PIE_COL = {"c_photos": "#2563eb", "c_videos": "#7c3aed", "c_audio": "#db2777", "c_docs": "#f59e0b",
+               "c_apps": "#0891b2", "c_other": "#64748b", "c_system": "#334155", "c_free": "#cbd5e1"}
+    pie_card = ctk.CTkFrame(right, corner_radius=0, fg_color=CARD, border_width=1, border_color=BORDER)
+    ctk.CTkLabel(pie_card, text=tr("pie_title"), font=F(14, True), text_color=TXT).pack(anchor=SIDE, padx=18,
+                                                                                        pady=(12, 2))
+    pie_cv = tk.Canvas(pie_card, width=440, height=172, bg=CARD, highlightthickness=0)
+    pie_cv.pack(padx=10, pady=(0, 10))
+
+    def draw_pie(data):
+        parts = [(k, v) for k, v in data["parts"] if v > 0]
+        tot = sum(v for _, v in parts) or 1
+        pie_cv.delete("all")
+        start = 90.0
+        for k, v in parts:
+            ext = v / tot * 360
+            if ext >= 359.9:
+                pie_cv.create_oval(8, 8, 164, 164, fill=PIE_COL[k], outline=CARD, width=2)
+            else:
+                pie_cv.create_arc(8, 8, 164, 164, start=start, extent=-ext, fill=PIE_COL[k], outline=CARD,
+                                  width=2, style="pieslice")
+            start -= ext
+        pie_cv.create_oval(46, 46, 126, 126, fill=CARD, outline=CARD)
+        pie_cv.create_text(86, 86, text=f"{human(data['used'], True)}\n/ {human(data['total'], True)}", fill=TXT,
+                           font=(FONT, 9, "bold"), justify="center")
+        for i, (k, v) in enumerate(parts):
+            y = 14 + i * 20
+            pie_cv.create_rectangle(186, y - 6, 198, y + 6, fill=PIE_COL[k], outline=PIE_COL[k])
+            pie_cv.create_text(206, y, anchor="w", fill=TXT, font=(FONT, 10),
+                               text=f"{tr(k)}   {human(v, True)}  ({v / tot * 100:.0f}%)")
 
     counts = {"n": 0, "s": 0, "bytes": 0}
     current = {"mode": "wifi"}
 
     def update_stats():
-        if not (counts["n"] or counts["s"]):
-            stats_var.set(tr("waiting"))
-        else:
-            stats_var.set(tr("stats", n=counts["n"], s=counts["s"], size=human_fa(counts["bytes"])))
+        tile_vals["n"].configure(text=str(counts["n"]))
+        tile_vals["s"].configure(text=str(counts["s"]))
+        tile_vals["size"].configure(text=human_fa(counts["bytes"]))
+        if counts["n"] or counts["s"]:
+            status_lbl.configure(text=tr("receiving"), text_color=GOOD)
 
     def add_log(key, name):
-        log.config(state="normal")
+        log.configure(state="normal")
         log.insert("1.0", tr(key, name=name) + "\n", "r")
         if int(log.index("end-1c").split(".")[0]) > 500:
             log.delete("501.0", "end")
-        log.config(state="disabled")
+        log.configure(state="disabled")
 
     def show(mode):
         current["mode"] = mode
@@ -900,10 +1328,45 @@ def run_gui(srv):
                     add_log("log_skip", name)
                 elif kind == "failed":
                     add_log("log_fail", name)
+                elif kind == "tether":
+                    key, _, detail = name.partition(":")
+                    ok = key == "tether_ok"
+                    tether_lbl.configure(text=tr(key) + ("\n" + detail if detail and not ok else ""),
+                                         text_color=GOOD if ok else MUTED if key == "tether_busy" else BAD)
+                    if ok:
+                        img = make_qr(detail, 150)
+                        if img:
+                            tq_imgs[:] = [img]
+                            tether_qr.configure(image=img)
+                        tether_entry.configure(state="normal")
+                        tether_entry.delete(0, "end")
+                        tether_entry.insert(0, detail)
+                        tether_entry.configure(state="readonly")
+                        tether_res.pack(fill="x")
+                    else:
+                        tether_res.pack_forget()
+                    if current["mode"] != "tether":
+                        show("tether")
+                elif kind == "prog":
+                    d = json.loads(name)
+                    frac = min(d["done"] / d["total"], 1.0)
+                    if not prog_shown["on"]:
+                        prog_shown["on"] = True
+                        prog_bar.pack(fill="x", pady=(0, 4), before=usb_lbl)
+                        prog_lbl.pack(anchor="w", pady=(0, 4), before=usb_lbl)
+                    prog_bar.set(frac)
+                    eta = eta_text(d["eta"]) if d["eta"] >= 0 else tr("eta_calc")
+                    prog_lbl.configure(text=tr("prog_line", pct=int(frac * 100), done=human(d["done"], True),
+                                               total=human(d["total"], True), speed=human(d["speed"], True),
+                                               eta=eta))
+                elif kind == "pie":
+                    draw_pie(json.loads(name))
+                    pie_card.pack(fill="x", pady=(0, 12), before=logcard)
                 elif kind == "usb":
                     key, _, detail = name.partition(":")
-                    usb_var.set(tr(key) + ("\n" + detail if detail else ""))
-                    usb_lbl.config(fg=GOOD if key == "usb_ok" else MUTED if key == "usb_busy" else BAD)
+                    usb_lbl.configure(text=tr(key) + ("\n" + detail if detail else ""),
+                                      text_color=GOOD if key in ("usb_ok", "scan_ok", "full_done")
+                                      else MUTED if key.endswith("_busy") else BAD)
                     if current["mode"] != "usb":
                         show("usb")
                 update_stats()
@@ -917,6 +1380,7 @@ def run_gui(srv):
         finally:
             root.destroy()
 
+    set_folder_text()
     refresh_url()
     update_stats()
     show("wifi")
